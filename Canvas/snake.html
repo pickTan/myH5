@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇</title>
+</head>
+<body style="background-color: transparent;width: 100vw;height: 100vh;">
+<canvas id="canvas1" style="background-color: #A8A8A8;width: 400px;height: 400px;">
+
+</canvas>
+<script>
+    //2.创建snake
+    function Snake(startX, startY, interval,type){
+        this.interval = interval;
+        this.startPoint = {point: {x: startX, y: startY}, type: type};
+        this.endPoint = {point: {x: startX - interval, y: startY},type: type};
+        this.guiji = [this.endPoint];
+    }
+    Snake.prototype = {
+        left: function (point) {  //左移
+            if (point.type == 'right' || point.type == 'left') return;
+            point.type = 'left';
+            this.reportBreakPoint(point.type)
+        },
+        right: function (x) {  //右移
+            if (point.type == 'right' || point.type == 'left') return;
+            point.type = 'right';
+            this.reportBreakPoint(point.type)
+        },
+        top: function (y) {  //上移
+            if (point.type == 'top' || point.type == 'bottom') return;
+            point.type = 'top';
+            this.reportBreakPoint(point.type)
+        },
+        bottom: function (y) { //下移
+            if (point.type == 'top' || point.type == 'bottom') return;
+            point.type = 'bottom';
+            this.reportBreakPoint(point.type);
+        }
+        ,
+        snakeMove: function () {
+            var obj = this;
+
+
+        },
+        died: function () {     //over
+
+        }
+        ,
+        point: function () {
+            return {x: x, y: y}
+        }
+        ,
+        eat: function () {
+            endX += 1;
+            endY += 1;
+        }
+        ,
+        //纪录每一步的距离
+        guijiFun: function (type) { //轨迹
+            var inter = {intervalX: 0, intervalY: 0}, interval = this.interval;
+            switch (type) {
+                case  'right' :
+                    inter.intervalX = interval;
+                    return inter;
+                case  'left' :
+                    inter.intervalX = -interval;
+                    return inter;
+                case  'top' :
+                    inter.intervalY = interval;
+                    return inter;
+                case  'bottom' :
+                    inter.intervalY = -interval;
+                    return inter;
+            }
+        },
+        //根据单个point
+        moveOnePoint:function(point){
+            var inter = this.guijiFun(point.type);
+            point.point.x += inter.intervalX;
+            point.point.y -= inter.intervalY;
+        },
+        //移动首位坐标
+        changeStartAndEnd:function(){
+            this.moveOnePoint(this.startPoint);
+            this.moveOnePoint(this.guiji[0]);
+            var guiji = this.guiji,
+                    lastGuiji = guiji[1],
+                    endPoint =this.guiji[0];
+            if(lastGuiji&& endPoint.point == lastGuiji.point ) {
+                endPoint.type = lastGuiji.type;
+                guiji.unshift();
+            }
+        },
+        //纪录中间转折点
+        reportBreakPoint: function (type) {
+            var inter = this.guijiFun(type),
+                    start = this.startPoint,
+                    point = {x: start.point.x + inter.intervalX, y: start.point.y + inter.intervalY};
+            this.guiji.push({point: point , type: type})
+        },
+
+        drawer: function () {
+            this.changeStartAndEnd();
+            var lst = [],
+                    startPoint = this.startPoint,
+                    guiji = this.guiji,
+                    interval = this.interval,
+                    length = guiji.length,
+                    reverseGuiji = guiji.reverse();
+            guiji.forEach(function ( item,i) {
+                if (i == 0) lst.push(startPoint.point);
+                item && lst.push(item.point);
+            });
+            reverseGuiji.forEach(function ( item,i) {
+                item && lst.push(item.point);
+                if (i == length - 1) lst.push(startPoint.point);
+            });
+            return lst;
+        }
+    }
+    function updateDrawer(){
+        //初始化
+        // 获取初始化位置
+        var snake = new Snake(20, 20, 20,'right');
+        //1.创建画板
+        var ctx = document.getElementById('canvas1').getContext('2d');
+        var timeFun = function(){
+            var drawerLst = snake.drawer();
+            ctx.beginPath();
+            drawerLst && drawerLst.forEach(function (item, i) {
+                if (i == 0) ctx.moveTo(item.x, item.y);
+                else ctx.lineTo(item.x, item.y);
+            });
+            ctx.fill();
+            console.log(JSON.stringify(drawerLst))
+            setTimeout(timeFun,1000);
+        }
+        timeFun();
+
+    }
+    updateDrawer();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>解决1px移动端1px问题</title>
+    <style>
+        @media screen and (-webkit-device-pixel-ratio:3) {
+            .border{
+                border: .3333px solid red;
+            }
+        }
+        @media screen and (-webkit-device-pixel-ratio:2) {
+            .border{
+                border: .5px solid red;
+            }
+        }
+        .border{
+            height: 100px;
+            width:100px ;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+
+    </div>
+</body>
+</html>

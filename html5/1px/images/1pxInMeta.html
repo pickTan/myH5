@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>利用viewport中的缩放来解决</title>
+    <script>
+        (function (width) {
+                var doc = document,
+                        docEl = doc.documentElement,
+                        layoutW = docEl.clientWidth,
+                        dpr = window.devicePixelRatio,
+                        scale = width / (dpr * layoutW),
+                        metaEl = document.createElement('meta');
+                docEl.setAttribute('data-dpr', dpr);
+                metaEl.setAttribute('name', 'viewport');
+                metaEl.setAttribute('content', 'initial-scale=' + scale + ',minimum-scale=' + scale + ',maximum-scale=' + scale + ',user-scalable=n');
+                if (docEl.firstElementChild) {
+                    docEl.firstElementChild.appendChild(metaEl);
+                } else {
+                    var wrap = doc.createElement('div');
+                    wrap.appendChild(metaEl);
+                    doc.write(wrap.innerHTML);
+                }
+
+            })(1200);
+    </script>
+    <style>
+        .border {
+            box-sizing: border-box;
+            height: 1000px;
+            width: 1000px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<div class="border"></div>
+</body>
+</html>

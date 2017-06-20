@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,minimum=1,maximum=1,user-scalable=n">
+    <title>用border-Image解决</title>
+    <style>
+        @media screen  and (-webkit-device-pixel-ratio:2){
+            .border {
+                border:1px solid transparent;
+                border-image: url("images/border.png") 1 repeat;
+            }
+        }
+        .border{
+            height:100px;
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="border">
+
+    </div>
+</body>
+</html>

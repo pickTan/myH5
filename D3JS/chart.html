@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>圆柱图</title>
+    <style>
+        .MyRect{
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<script>
+    // 制作图标圆柱图
+    // 1.创建svg画布
+    var height = 400,
+        width = 400;
+    var svg = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+    var  padding = {left:30, right:30, top:20, bottom:20};
+    var dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+    // 2.创建x,y轴间距规则
+    var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length))
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+
+    var yScale = d3.scale.linear()
+            .domain([0,d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+    // 3.定义x，y坐标轴在画布中的位置
+    var xAxis = d3.svg.axis().scale(xScale).orient('bottom');
+    var yAxis = d3.svg.axis().scale(yScale).orient('left');
+
+    //画出矩形
+    var rectPadding  = 4;
+    //添加矩形元素
+    var rects = svg.selectAll(".MyRect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("class","MyRect")
+            .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function(d,i){
+                return xScale(i) + rectPadding/2;
+            } )
+            .attr("y",function(d){
+                return yScale(d);
+            })
+            .attr("width", xScale.rangeBand() - rectPadding )
+            .attr("height", function(d){
+                return height - padding.top - padding.bottom - yScale(d);
+            })
+            .attr('fill','darkred');
+    var texts = svg.selectAll(".MyText")
+            .data(dataset)
+            .enter()
+            .append("text")
+            .attr("class","MyText")
+            .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+            .attr("x", function(d,i){
+                return xScale(i) + rectPadding/2;
+            } )
+            .attr("y",function(d){
+                return yScale(d);
+            })
+            .attr("dx",function(){
+                return (xScale.rangeBand() - rectPadding)/4;
+            })
+            .attr("dy",function(d){
+                return 0;
+            })
+            .text(function(d){
+                return d;
+            });
+    //添加x轴
+    svg.append("g")
+            .attr("class","axis")
+            .attr("transform","translate(" + padding.left + "," + (height - padding.bottom) + ")")
+            .call(xAxis);
+
+    //添加y轴
+    svg.append("g")
+            .attr("class","axis")
+            .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+            .call(yAxis);
+</script>
+</body>
+</html>

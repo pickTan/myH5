@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" manifest="cache.manifest">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3>manifest</h3>
+    <p>&lt; html lang="zh-CN" manifest="cache.manifest" &gt;表示此文件需离线下载保存，一般用于webapp</p>
+    <h3>target</h3>
+    <p>&lt;base target="_blank" &gt;base表示个目录，target表示此页面所有href都用target方法打开</p>
+    <h3>defer and async</h3>
+    <p>&lt;script defer  src="_blank" &gt;defer 表示下载完全部资源并编译后再执行此资源</p>
+    <p>&lt;script async  src="_blank" &gt;async 表示下载此资源后马上执行，同时并不停止浏览器解析下面的数据</p>
+    <h3>media 、download、ping、 hreflang and ref</h3>
+    <p>&lt;a   media="handhelp"  &gt; 手持 表示会对手持设备进行优化</p>
+    <p>&lt;a   media="tv" &gt;电视 表示会对电视进行优化</p>
+    <p>&lt;a   hreflang="zh" &gt;表示超链接所拥有的语言</p>
+    <p>&lt;a   ref="external" &gt;表示超链接是内部还是外部超链接 external 外部</p>
+    <p>&lt;a   ping="url" &gt; 表示超链接点击时会发送一个请求到此路径</p>
+    <p>&lt;a href="url"  download="url" &gt; 表示超链接点击时下载文件，一些模版的下载可以前端直接做</p>
+    <p>&lt;ol start="50"  reversed &lt; 表示从50开始 倒叙排列</p>
+    <ol start="50" reversed>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ol>
+    <menu type="toolbar" label="menu">
+
+    </menu>
+    <p>
+        &lt;style scoped&lt;
+        &lt;/style&lt; <br>
+        表示只作用与当前块
+    </p>
+
+
+
+</body>
+</html>

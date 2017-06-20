@@ -1,0 +1,84 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HelloWorld</title>
+</head>
+<body>
+<p>Hello World 1</p>
+<p>Hello World 2</p>
+
+<script src="d3.v3.min.js" charset="utf-8"></script>
+<script>
+//    d3.select()：是选择所有指定元素的第一个
+//    d3.selectAll()：是选择指定元素的全部
+    d3.select("body").selectAll("p").text("www.decembercafe.org");
+//datum()：绑定一个数据到选择集上
+//data()：绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定
+    d3.select('p').datum('世界之上');
+
+    var width = 300;  //画布的宽度
+    var height = 300;   //画布的高度
+    var svg = d3.select("body")     //选择文档中的body元素
+        .append("svg")              //添加一个svg元素
+        .attr("width", width)       //设定宽度
+        .attr("height", height);    //设定高度
+    var dataset = [ 250 , 210 , 170 , 130 , 90 ];
+    var rectHeight = 25;   //每个矩形所占的像素高度(包括空白)
+
+    svg.selectAll("rect")     //选择svg内所有的矩形
+            .data(dataset)    //绑定数组
+            .enter()          //指定选择集的enter部分
+            .append("rect")   //添加足够数量的矩形元素
+            .attr("x",20)
+            .attr("y",function(d,i){
+                return i * rectHeight;
+            })
+            .attr("width",function(d){
+                return d;
+            })
+            .attr("height",rectHeight-2)
+            .attr("fill","steelblue");
+
+    //定义一个svg
+    var height2 = 400,
+        width2 =  400,
+        style = 'padding:10px 20px;';
+    var svg2 = d3.select('p')
+                .append('svg')
+                .attr("width", width2)       //设定宽度
+                .attr("height", height2)    //设定高度
+                .attr("style", style);    //设定高度
+    var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length))
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+
+    //y轴的比例尺
+    var yScale = d3.scale.linear()
+            .domain([0,d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+    //定义x轴
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
+    //定义y轴
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+    svg2.selectAll('rect')
+        .data(dataset)
+        .enter()
+        .append('rect')
+        .attr('x',function(d,i){
+            return 40*i;
+        })
+        .attr('y',0)
+        .attr('width',20)
+        .attr('height',function(d,i){
+            return dataset[i];
+        }).attr('fill','steelblue')
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN"> <!--规定语法为中文-->
+<head>
+    <meta charset="UTF-8">
+    <title>html5语法</title>
+</head>
+<body>
+    <h3>mark</h3>
+    <p>
+        "Do not forget to buy"
+        <mark>"today"</mark>
+    </p>
+    <h3>progress</h3>
+    <progress max="100" value="85">...</progress>
+    <h3>time</h3>
+    <p>dateTime 是给搜索引擎用的 T是分割符，z是标准时间 pubdate 当搜索引擎都到时就知道这是发布时间</p>
+    <p>
+        "发布日期"
+        <time datetime="2013-10-18T09:00Z">9:00</time>
+
+        "更新日期"
+        <time datetime="2013-10-18T09:00Z" pubdate>9:00</time>
+    </p>
+    <h3>ruby</h3>
+    <p>注释 &lt;rt&gt;浏览器不支持时该如何显示； &lt;rp&gt;表示注释内容 </p>
+    <ruby>
+        "漢"
+        <rt></rt>
+    </ruby>
+    <h3>wbr</h3>
+    <p>软换行，一行显示不够才换行</p>
+    <p>
+        "如果想学习js，html，那么你必须熟悉xml"
+        <wbr>
+        "http request对象"
+    </p>
+    <h3>canvas</h3>
+    <p>html5 画布</p>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#ff0000";
+        ctx.fillRect(0,0,80,100);
+    </script>
+    <h3>command</h3>
+    <p>表示菜单下每一项都是一个命令，浏览器支持都不大好</p>
+    <menu>
+        <command onclick="alert('hellow world')" label="click">"click me"</command>
+    </menu>
+    <h3>details</h3>
+    <p>显示或者隐藏</p>
+    <details>
+        <summary>macBook pro specification</summary>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </details>
+    <h3>dataList</h3>
+    <P>模糊搜索list值</P>
+    <input type="text" placeholder="模糊查询" list="cars">
+    <datalist id="cars">
+        <option value="BMW">宝马</option>
+        <option value="ford">法拉利</option>
+        <option value="volvo">volvo</option>
+    </datalist>
+    <h3>keygen</h3>
+    <P>加密的方法，只支持md5，不支持RSA,DSA,ECC等非对称加密，有一个选择框让客户很迷惑</P>
+    <form>
+        UserName:<input type="password">
+        Encryption:<keygen name="security"></keygen>
+    </form>
+    <h3>output</h3>
+    <P>拖动改变值,input type=range 表示为拖动条,type = number表示为数字</P>
+    <form oninput="x.value=parseInt(a.value) + parseInt(b.value)" >
+         0<input type="range" id="a" value="0">100
+         +<input type="number" id="b" value="50">
+        <output name="x" for="a b">
+            139
+        </output>
+    </form>
+    <h3>menu</h3>
+    <P>menu 表示按钮，主要看type 有很多类型</P>
+    <menu type="toolbar">
+        <li>red</li>
+        <li>blur</li>
+        <li>black</li>
+    </menu>
+
+</body>
+</html>
